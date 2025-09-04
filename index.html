@@ -1,180 +1,260 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Victor Hugo — Portfolio</title>
-<meta name="description" content="Portfolio inspirado na linguagem minimalista da Vucko: tipografia forte, foco em cases e microinterações — tudo em um único arquivo HTML." />
-<link rel="stylesheet" href="source/styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Victor Hugo – Portfólio</title>
+  <link rel="stylesheet" href="source/styles.css">
+  <meta name="description" content="Portfólio de Victor Hugo" />
 </head>
-<body>
-<header id="hdr">
-  <div class="container nav">
-    <a class="brand" href="#top" aria-label="Início">Victor Hugo <span>portfólio</span></a>
-    <nav class="menu" id="menu" aria-label="Navegação principal">
-      <a href="#work">Projetos</a>
-      <a href="#about">Sobre</a>
-      <a href="#approach">Abordagem</a>
-      <a href="#contact">Contato</a>
-    </nav>
-    <button class="btn ghost theme" id="theme" aria-pressed="false" title="Alternar tema">Tema</button>
-    <button class="btn ghost burger" id="burger" aria-controls="menu" aria-expanded="false" title="Abrir menu">Menu</button>
-  </div>
-</header>
+<body data-theme="dark">
+  <a href="#main" class="skip">Pular para o conteúdo</a>
 
-<main id="top">
-  <!-- HERO -->
-  <section class="hero container" aria-label="Apresentação">
-    <p class="kicker reveal">Projetos de <strong>Excelência</strong>.</p>
-    <h1 class="reveal" style="--d:.1s">Inovações<br><strong>de impacto</strong>.</h1>
-    <p class="reveal" style="--d:.2s">Faço <strong>ideias</strong> ganharem asas.</p>
-    <div class="cta-row reveal" style="--d:.3s">
-      <a class="btn" href="#work">Ver cases</a>
-      <a class="btn ghost" href="#contact">Fale comigo</a>
-    </div>
-  </section>
+  <header class="hdr" id="hdr">
+    <div class="container hdr-inner">
+      <button id="logo" class="btn" aria-label="Topo">
+        <strong>Victor<br>Hugo</strong>
+      </button>
 
-  <!-- MARQUEE (clientes/selos genéricos) -->
-  <section class="marquee" aria-label="Clientes">
-    <div class="track">
-      <span>FULL STACK</span><span>3D</span><span>JOGOS</span><span>PERFORMANCE</span><span>ACESSIBILIDADE</span>
-      <span>FULL STACK</span><span>3D</span><span>JOGOS</span><span>PERFORMANCE</span><span>ACESSIBILIDADE</span>
-    </div>
-  </section>
+      <!-- O mesmo nav vira drawer no mobile e inline no desktop -->
+      <nav id="primaryNav" aria-label="Seções">
+        <a href="#work">Trabalhos</a>
+        <a href="#about">Sobre</a>
+        <a href="#services">Serviços</a>
+        <a href="#contact">Contato</a>
+      </nav>
 
-  <!-- WORK / SLIDER -->
-  <section id="work" class="section container" aria-label="Trabalhos em destaque">
-    <div class="title-row">
-      <h2>Projetos em destaque</h2>
-      <div class="sub">Deslize ↔ ou use as setas do teclado</div>
-    </div>
-    <div class="slider" id="slider" tabindex="0" role="list">
-      <!-- Card 1 -->
-      <article class="card reveal" role="listitem" aria-label="Case 1 – Identidade Visual">
-        <div class="figure" aria-hidden="true">
-          <img src="source/img/Apartment_Living_Room_1.png">
-        </div> 
-        <div class="meta"><span class="tag">Branding</span><a class="arrow" href="#contact" aria-label="Detalhes do case">→</a></div>
-      </article>
-      <!-- Card 2 -->
-      <article class="card reveal" role="listitem" aria-label="Case 1 – Identidade Visual">
-        <div class="figure" aria-hidden="true">
-          <img src="source/img/Mercedes_AMG_EEVEE.png">
-        </div> 
-        <div class="meta"><span class="tag">Branding</span><a class="arrow" href="#contact" aria-label="Detalhes do case">→</a></div>
-      </article>
-      <!-- Card 3 -->
-      <article class="card reveal" role="listitem" aria-label="Case 1 – Identidade Visual">
-        <div class="figure" aria-hidden="true">
-          <img src="source/img/Ferrari_CYCLES.png">
-        </div> 
-        <div class="meta"><span class="tag">Branding</span><a class="arrow" href="#contact" aria-label="Detalhes do case">→</a></div>
-      </article>
-      <!-- Card 4 -->
-      <article class="card reveal" role="listitem" aria-label="Case 1 – Identidade Visual">
-        <div class="figure" aria-hidden="true">
-          <img src="source/img/scenary_new_features_viii.png">
-        </div> 
-        <div class="meta"><span class="tag">Branding</span><a class="arrow" href="#contact" aria-label="Detalhes do case">→</a></div>
-      </article>
-      <!-- Card 5 -->
-      <article class="card reveal" role="listitem" aria-label="Case 1 – Identidade Visual">
-        <div class="figure" aria-hidden="true">
-          <img src="source/img/House in the beach (2).png">
-        </div> 
-        <div class="meta"><span class="tag">Branding</span><a class="arrow" href="#contact" aria-label="Detalhes do case">→</a></div>
-      </article>
-      <!-- Card 6 -->
-      <article class="card reveal" role="listitem" aria-label="Case 1 – Identidade Visual">
-        <div class="figure" aria-hidden="true">
-          <img src="source/img/Apartment_Kitchen_1.png">
-        </div> 
-        <div class="meta"><span class="tag">Branding</span><a class="arrow" href="#contact" aria-label="Detalhes do case">→</a></div>
-      </article>
-    </div>
-  </section>
+      <div style="display:flex;gap:.4rem;align-items:center">
+        <!-- Botão do drawer (apenas mobile) -->
+        <button class="btn menu-btn" id="menuToggle"
+                aria-expanded="false" aria-controls="primaryNav" aria-label="Abrir menu">
+          <svg class="icon-burger" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/>
+          </svg>
+          <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.3 5.71 12 12.01l-6.3-6.3-1.4 1.41 6.3 6.3-6.3 6.3 1.4 1.41 6.3-6.3 6.3 6.3 1.41-1.41-6.3-6.3 6.3-6.3z"/>
+          </svg>
+          <span class="sr-only">Menu</span>
+        </button>
 
-  <!-- ABOUT -->
-  <section id="about" class="section container" aria-label="Sobre o estúdio">
-    <div class="grid">
-      <div class="col-6">
-        <h2>Sobre</h2>
-        <p class="sub">Minimalismo, impacto visual e entrega técnica.</p>
-        <p>Eu combino <strong>design</strong>, <strong>3D</strong> e <strong>desenvolvimento</strong> para criar experiências claras e memoráveis. O foco é simples: resolver o problema certo com uma solução elegante, performática e fácil de manter.</p>
-        <p>Stack preferida: vanilla web para velocidade e robustez; quando necessário, integrações progressivas com frameworks e pipelines 3D.</p>
+        <button class="btn" id="themeToggle" aria-label="Alternar tema">
+          <svg id="sol" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun-fill" viewBox="0 0 16 16">
+            <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+          </svg>
+          <svg id="lua" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill" viewBox="0 0 16 16">
+            <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
+          </svg>
+        </button>
       </div>
-      <div class="col-6 reveal">
-        <div class="card" style="aspect-ratio:4/3">
-          <div class="figure">
-            <img src="source/img/VENOM_CYCLES_STUDIO_UPDATE.png">
+    </div>
+  </header>
+
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero container" id="home">
+      <div class="blob b1" aria-hidden></div>
+      <div class="blob b2" aria-hidden></div>
+      <div class="blob b3" aria-hidden></div>
+      <div class="hero-inner">
+        <p style="color:var(--muted);margin:0 0 8px 0">Victor Hugo Lima Monteiro</p>
+        <h1 class="title" id="heroTitle" style="font-size:clamp(2.2rem,6vw,4.2rem);max-width:18ch;">
+          Projetos digitais com foco em <span style="background:linear-gradient(90deg,var(--brand1),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent">impacto real</span>.
+        </h1>
+        <p style="max-width:56ch;color:var(--muted);font-size:1.05rem;margin-top:14px">
+          Desenvolvedor multiplataforma com experiência em projetos de inovação.
+        </p><br>
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-top:16px;">
+          <a class="btn" href="#contact" aria-label="Fale comigo">Fale comigo
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden style="margin-left:.4rem"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn" href="#work">Ver trabalhos</a>
+        </div>
+        <div class="marquee" aria-hidden>
+          <div class="track">
+            <span>FULL STACK</span><span>3D</span><span>JOGOS</span><span>PERFORMANCE</span><span>ACESSIBILIDADE</span>
+            <span>FULL STACK</span><span>3D</span><span>JOGOS</span><span>PERFORMANCE</span><span>ACESSIBILIDADE</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- APPROACH -->
-  <section id="approach" class="section container" aria-label="Abordagem">
-    <div class="title-row"><h2>Abordagem</h2><span class="sub">Processo ponta a ponta</span></div>
-    <div class="grid">
-      <div class="col-4 reveal">
-        <h3>1. Descoberta</h3>
-        <p>Imersão no contexto, metas e público. Mapeio restrições e indicadores de sucesso para alinhar expectativas.</p>
+    <!-- WORK -->
+    <section id="work" class="container">
+      <div style="display:flex;align-items:flex-end;justify-content:center;gap:16px;margin-bottom:14px">
+        <div>
+          <h2 class="title" style="font-size:clamp(1.8rem,4vw,2.8rem);margin:0;text-align: center;">Trabalhos em Destaque</h2>
+          <p style="color:var(--muted);margin:.4rem 0 0;text-align: center;">Seleção de estudos de caso com foco em impacto e acessibilidade.</p>
+        </div>
+        <a class="btn" href="#contact" style="display:none" id="ctaDesktop">Iniciar projeto</a>
       </div>
-      <div class="col-4 reveal">
-        <h3>2. Design</h3>
-        <p>Estruturo a informação, defino linguagem visual e prototipo interações focadas em clareza e impacto.</p>
-      </div>
-      <div class="col-4 reveal">
-        <h3>3. Entrega</h3>
-        <p>Implementação performática, acessível e escalável. Documentação e handoff objetivo para evolução contínua.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="section container" aria-label="Contato">
-    <div class="grid">
-      <div class="col-8">
-        <h2>Contato</h2>
-        <p class="sub">Aberto a freelas, parcerias e estágios.</p>
-        <div class="cta-row">
-          <a class="btn" href="mailto:victorhugolm.dev@gmail.com">Enviar e‑mail</a>
-          <a class="btn ghost" href="#" onclick="copyWhats()">Copiar WhatsApp</a>
+      <!-- Carousel (mobile/tablet) -->
+      <div class="carousel">
+        <div class="track-x" id="carouselTrack" aria-label="Carrossel de projetos">
+          <article class="card reveal" data-grad="linear-gradient(135deg, var(--accent), var(--warm))">
+            <div class="grad" aria-hidden></div>
+            <header style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <h3>RaizBrasil – Moeda Social</h3>
+              <span class="badge">2025</span>
+            </header>
+            <p>Plataforma nacional de moeda social focada em segurança alimentar.</p>
+            <div class="tags"><span class="badge">product</span><span class="badge">design</span><span class="badge">web</span></div>
+          </article>
+          <article class="card reveal" data-grad="linear-gradient(135deg, var(--brand2), var(--brand1))">
+            <div class="grad" aria-hidden></div>
+            <header style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <h3>VINCULA – Agenda Acadêmica</h3>
+              <span class="badge">2025</span>
+            </header>
+            <p>Visão integrada de comunicação e logística acadêmica (IFRJ).</p>
+            <div class="tags"><span class="badge">mobile</span><span class="badge">saas</span><span class="badge">react</span></div>
+          </article>
+          <article class="card reveal" data-grad="linear-gradient(135deg, #7c3aed, var(--brand2))">
+            <div class="grad" aria-hidden></div>
+            <header style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <h3>TerrainGen – Procedural Worlds</h3>
+              <span class="badge">2024</span>
+            </header>
+            <p>Geração de terrenos (Geometry Nodes + runtime Unity).</p>
+            <div class="tags"><span class="badge">3D</span><span class="badge">unity</span><span class="badge">blender</span></div>
+          </article>
+          <article class="card reveal" data-grad="linear-gradient(135deg, #fb923c, #fb7185)">
+            <div class="grad" aria-hidden></div>
+            <header style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <h3>MostraTech – Showcase IFRJ</h3>
+              <span class="badge">2024</span>
+            </header>
+            <p>Landing e exibição de projetos estudantis com foco em acessibilidade.</p>
+            <div class="tags"><span class="badge">web</span><span class="badge">acessibilidade</span><span class="badge">ui</span></div>
+          </article>
+        </div>
+        <div class="nav-btn nav-l">
+          <button id="prevBtn" aria-label="Anterior">
+            <svg id="caBtn" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+            </svg>
+          </button>
+        </div>
+        <div class="nav-btn nav-r">
+          <button id="nextBtn" aria-label="Próximo">
+            <svg id="caBtn" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+            </svg>
+          </button>
         </div>
       </div>
-      <div class="col-4 reveal">
-        <div class="card" style="aspect-ratio:1;">
-          <div class="figure">
-            <img src="source/img/profile.jpeg">
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="container">
+      <div style="display:grid;gap:18px;grid-template-columns:1fr;align-items:start">
+        <div class="reveal">
+          <h2 class="title" style="font-size:clamp(1.8rem,4vw,2.8rem);margin:0;text-align: center;">Sobre</h2>
+          <p style="color:var(--muted);text-align: center;">Graduando em Engenharia da Computação pelo IFRJ, com formação técnica integrada em Informática. Experiência em desenvolvimento de aplicações web e mobile, criação de soluções interativas e gestão de projetos acadêmicos financiados por órgãos de fomento (FAPERJ e CNPq). Conhecimentos sólidos em linguagens de programação, bancos de dados, computação em nuvem (AWS), redes de computadores e modelagem 3D como diferencial.</p>
+        </div>
+        <div class="card reveal">
+          <h3 style="margin:0 0 10px 0;text-align: center;">Habilidades Técnicas</h3>
+          <br>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;color:var(--muted);text-align: center;">
+            <span class="pill">JavaScript</span>
+            <span class="pill">React / NestJS / Node.js</span>
+            <span class="pill">PHP</span>
+            <span class="pill">PL/SQL</span>
+            <span class="pill">Python</span>
+            <span class="pill">WordPress</span>
+            <span class="pill">Unity / C#</span>
+            <span class="pill">Unreal / C++</span>
+            <span class="pill">Blender</span>
+            <span class="pill">AutoCAD</span>
+            <span class="pill">GIT</span>
+            <span class="pill">Figma</span>
+          </div>
+          <br>
+          <div style="margin-top:12px;display:grid;gap:6px;font-size:.95rem">
+            <div style="display:flex;justify-content:center"><span class="badge">Qualidade de trabalho AA</span></div>
+            <div style="display:flex;justify-content:center"><span class="badge">Mais de 2 anos de experiência cada</span></div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
 
-<footer class="container" aria-label="Rodapé">
-  <div class="footer-grid">
-    <div>
-      <strong>Victor Hugo</strong><br/>
-      <small>© <span id="year"></span> — Feito em um único arquivo .html</small>
-    </div>
-    <div>
-      <div>Redes</div>
-      <a href="#" rel="noopener">LinkedIn</a><br/>
-      <a href="#" rel="noopener">GitHub</a><br/>
-      <a href="#" rel="noopener">Behance</a>
-    </div>
-    <div>
-      <div>Navegação</div>
-      <a href="#work">Work</a><br/>
-      <a href="#about">Estúdio</a><br/>
-      <a href="#contact">Contato</a>
-    </div>
-  </div>
-</footer>
+    <!-- SERVICES -->
+    <section id="services" class="container">
+      <h2 class="title" style="font-size:clamp(1.8rem,4vw,2.8rem);margin:0;text-align: center;">Serviços</h2>
+      <p style="color:var(--muted);margin:.4rem 0 14px;text-align: center;">Soluções rápidas e fáceis por um preço justo.</p>
+      <div class="grid-3">
+        <div class="card reveal">
+          <h3 style="margin:0">Full Stack</h3>
+          <p>Desenvolvimento de sistemas (app/web) escaláveis e completos.</p>
+          <div style="margin-top:10px;color:var(--brand1);display:flex;align-items:center;gap:.3rem">Saiba mais <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg></div>
+        </div>
+        <div class="card reveal">
+          <h3 style="margin:0">3D / XR / Games</h3>
+          <p>Ambientes 3D, materiais PBR e experiências imersivas.</p>
+          <div style="margin-top:10px;color:var(--brand1);display:flex;align-items:center;gap:.3rem">Saiba mais <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg></div>
+        </div>
+        <div class="card reveal">
+          <h3 style="margin:0">Front-end Performático</h3>
+          <p>Interações reativas, acessibilidade e SEO técnico.</p>
+          <div style="margin-top:10px;color:var(--brand1);display:flex;align-items:center;gap:.3rem">Saiba mais <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg></div>
+        </div>
+      </div>
+    </section>
 
-<script src="source/scripts.js"></script>
+    <!-- CONTACT -->
+    <section id="contact" class="container">
+      <div class="card reveal" style="background:linear-gradient(160deg,color-mix(in oklab,var(--fg)10%,transparent), var(--card));">
+        <div style="display:grid;gap:18px;grid-template-columns:1fr;align-items:center">
+          <div>
+            <h2 class="title" style="font-size:clamp(1.8rem,4vw,2.8rem);margin:0;text-align: center;">Vamos construir algo?</h2>
+            <p style="color:var(--muted);margin:.4rem 0 0;text-align: center;">Projetos abertos. Conte um pouco do seu desafio e retorno com um plano objetivo.</p>
+          </div>
+          <form id="contactForm">
+            <input name="name" required placeholder="Seu nome" />
+            <input name="email" type="email" required placeholder="Seu e‑mail" />
+            <textarea name="about" required rows="5" placeholder="Conte sobre o projeto"></textarea>
+            <button class="btn" id="btnContact" type="submit">
+              Enviar 
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+      <br>
+      <div class="social-links">      
+        <a id="social-icon" class="social-btn flex-center" href="https://www.linkedin.com/in/vhlima1008">
+          <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"></path></svg>
+          <span>in/vhlima1008</span>
+        </a>
+        <a id="social-icon" class="social-btn flex-center" href="https://github.com/vhlima1008">
+          <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+          <span>vhlima1008</span>
+        </a>
+        <a id="social-icon" class="social-btn flex-center" href="https://www.behance.net/victorhugolima3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-behance" viewBox="0 0 16 16"><path d="M4.654 3c.461 0 .887.035 1.278.14.39.07.711.216.996.391s.497.426.641.747c.14.32.216.711.216 1.137 0 .496-.106.922-.356 1.242-.215.32-.566.606-.997.817.606.176 1.067.496 1.348.922s.461.957.461 1.563c0 .496-.105.922-.285 1.278a2.3 2.3 0 0 1-.782.887c-.32.215-.711.39-1.137.496a5.3 5.3 0 0 1-1.278.176L0 12.803V3zm-.285 3.978c.39 0 .71-.105.957-.285.246-.18.355-.497.355-.887 0-.216-.035-.426-.105-.567a1 1 0 0 0-.32-.355 1.8 1.8 0 0 0-.461-.176c-.176-.035-.356-.035-.567-.035H2.17v2.31c0-.005 2.2-.005 2.2-.005zm.105 4.193c.215 0 .426-.035.606-.07.176-.035.356-.106.496-.216s.25-.215.356-.39c.07-.176.14-.391.14-.641 0-.496-.14-.852-.426-1.102-.285-.215-.676-.32-1.137-.32H2.17v2.734h2.305zm6.858-.035q.428.427 1.278.426c.39 0 .746-.106 1.032-.286q.426-.32.53-.64h1.74c-.286.851-.712 1.457-1.278 1.848-.566.355-1.243.566-2.06.566a4.1 4.1 0 0 1-1.527-.285 2.8 2.8 0 0 1-1.137-.782 2.85 2.85 0 0 1-.712-1.172c-.175-.461-.25-.957-.25-1.528 0-.531.07-1.032.25-1.493.18-.46.426-.852.747-1.207.32-.32.711-.606 1.137-.782a4 4 0 0 1 1.493-.285c.606 0 1.137.105 1.598.355.46.25.817.532 1.102.958.285.39.496.851.641 1.348.07.496.105.996.07 1.563h-5.15c0 .58.21 1.11.496 1.396m2.24-3.732c-.25-.25-.642-.391-1.103-.391-.32 0-.566.07-.781.176s-.356.25-.496.39a.96.96 0 0 0-.25.497c-.036.175-.07.32-.07.46h3.196c-.07-.526-.25-.882-.497-1.132zm-3.127-3.728h3.978v.957h-3.978z"/></svg>
+          <span>victorhugolima3</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between">
+      <p>© <span id="year"></span> Victor Hugo Lima Monteiro. Todos os direitos reservados.</p>
+      <div style="display:flex;gap:8px;color:var(--muted)">
+        <a href="#home">Topo</a><span>·</span>
+        <a href="#work">Trabalhos</a><span>·</span>
+        <a href="#contact">Contato</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cursor custom container -->
+  <div class="cursor" aria-hidden><div class="dot" id="dot"></div></div>
+
+  <script src="source/scripts.js"></script>
 </body>
 </html>

@@ -1,80 +1,274 @@
-(()=>{
-  const hdr = document.getElementById('hdr');
-  let last = window.scrollY;
-  addEventListener('scroll',()=>{
-    const y = window.scrollY;
-    hdr.classList.toggle('hide', y > last && y > 80);
-    last = y;
-  });
+    // ------------------------------
+    // Utilidades
+    // ------------------------------
+    const $ = (s, r=document) => r.querySelector(s);
+    const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
 
-  // Mobile menu
-  const menu = document.getElementById('menu');
-  const burger = document.getElementById('burger');
-  burger && burger.addEventListener('click',()=>{
-    const open = menu.classList.toggle('open');
-    burger.setAttribute('aria-expanded', open);
-  });
+    // Ano footer
+    $('#year').textContent = new Date().getFullYear();
 
-  // Theme toggle
-  const theme = document.getElementById('theme');
-  theme.addEventListener('click',()=>{
-    document.body.classList.toggle('light');
-    theme.setAttribute('aria-pressed', document.body.classList.contains('light'));
-  });
+    // Header sticky
+    const hdr = $('#hdr');
+    const onScrollHdr = () => hdr.classList.toggle('stuck', window.scrollY > 10);
+    onScrollHdr();
+    addEventListener('scroll', onScrollHdr, { passive: true });
 
-  // Hero parallax
-  addEventListener('pointermove',e=>{
-    const x = (e.clientX/innerWidth - .5)*10;
-    const y = (e.clientY/innerHeight - .5)*10;
-    document.documentElement.style.setProperty('--mx', x+'px');
-    document.documentElement.style.setProperty('--my', y+'px');
-  });
+    //Tema
+    const themeToggle = $('#themeToggle');           // mantém sua função $
+    const sol = document.getElementById('sol');
+    const lua = document.getElementById('lua');
 
-  // Slider (drag/swipe with inertia + keyboard)
-  const slider = document.getElementById('slider');
-  let isDown=false,startX=0,scrollL=0,vel=0,raf=0,lastT=0,lastX=0;
-  function inertia(){
-    slider.scrollLeft += vel;
-    vel *= 0.95;
-    if(Math.abs(vel)>.3) raf = requestAnimationFrame(inertia);
-  }
-  slider.addEventListener('pointerdown',e=>{
-    isDown=true; slider.setPointerCapture(e.pointerId);
-    startX=e.clientX; scrollL=slider.scrollLeft; vel=0; cancelAnimationFrame(raf);
-    lastT=performance.now(); lastX=e.clientX;
-  });
-  slider.addEventListener('pointermove',e=>{
-    if(!isDown) return;
-    const dx=e.clientX-startX;
-    slider.scrollLeft = scrollL - dx;
-    const now=performance.now();
-    vel = (e.clientX - lastX) / (now - lastT) * 20; // px/frame approx
-    lastT=now; lastX=e.clientX;
-  });
-  addEventListener('pointerup',()=>{ isDown=false; inertia(); });
-  // keyboard
-  slider.addEventListener('keydown',e=>{
-    if(e.key==='ArrowRight') slider.scrollBy({left: innerWidth*.4, behavior:'smooth'});
-    if(e.key==='ArrowLeft') slider.scrollBy({left: -innerWidth*.4, behavior:'smooth'});
-  });
-  // horizontal wheel support
-  slider.addEventListener('wheel',e=>{
-    if(Math.abs(e.deltaX) < Math.abs(e.deltaY)) return; // deixa vertical normal
-    slider.scrollLeft += e.deltaX;
-  }, {passive:true});
+    const setIconForTheme = (t) => {
+    const isDark = t === 'dark';
+    // Mostrar SOL no modo escuro; mostrar LUA no modo claro
+    sol.style.display = isDark ? 'inline-block' : 'none';
+    lua.style.display = isDark ? 'none' : 'inline-block';
+    // Acessibilidade (opcional)
+    themeToggle.setAttribute('aria-label', isDark ? 'Alternar para tema claro' : 'Alternar para tema escuro');
+    };
 
-  // Reveal on scroll
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('in'); });
-  },{threshold:0.2});
-  document.querySelectorAll('.reveal,.card').forEach(el=>io.observe(el));
+    const applyTheme = (t) => {
+    document.body.setAttribute('data-theme', t);
+    localStorage.setItem('theme', t);
+    setIconForTheme(t); // atualiza os ícones sempre que o tema mudar
+    };
 
-  // Year
-  year.textContent = new Date().getFullYear();
+    // Estado inicial
+    applyTheme(localStorage.getItem('theme') || 'dark');
 
-  // Copy contact
-  window.copyWhats = () => {
-    navigator.clipboard.writeText('+55 (21) 9 9999-9999');
-    alert('WhatsApp copiado!');
-  }
-})();
+    // Toggle no clique
+    themeToggle.addEventListener('click', () => {
+    const next = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    });
+
+    // Voltar ao topo via logo
+    $('#logo').addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
+
+
+
+
+
+    // HEADER MENU (dropdown abaixo do header)
+    document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('menuToggle');
+    const nav = document.getElementById('primaryNav');
+    const hdr = document.getElementById('hdr');
+
+    if (!menuBtn || !nav) {
+        console.warn('Menu: verifique se #menuToggle e #primaryNav existem.');
+        return;
+    }
+
+    const headerOffset = () => (hdr ? hdr.offsetHeight : 0);
+
+    function openMenu() {
+        menuBtn.setAttribute('aria-expanded', 'true');
+        nav.classList.add('is-open');
+        // foca primeiro link
+        const firstLink = nav.querySelector('a[href]');
+        (firstLink || nav).focus?.();
+    }
+
+    function closeMenu() {
+        menuBtn.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('is-open');
+    }
+
+    function isOpen() {
+        return menuBtn.getAttribute('aria-expanded') === 'true';
+    }
+
+    // Toggle
+    menuBtn.addEventListener('click', () => (isOpen() ? closeMenu() : openMenu()));
+
+    // Fechar no ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen()) closeMenu();
+    });
+
+    // Fechar ao rolar a página (experiência comum para dropdown)
+    window.addEventListener('scroll', () => { if (isOpen()) closeMenu(); }, { passive: true });
+
+    // Ajuste de foco tab (sem trap – não é overlay)
+    // Fechar ao clicar fora
+    document.addEventListener('click', (e) => {
+        if (!isOpen()) return;
+        const withinHeader = e.target.closest('#hdr');
+        const withinNav = e.target.closest('#primaryNav');
+        const withinBtn = e.target.closest('#menuToggle');
+        if (!withinHeader && !withinNav && !withinBtn) closeMenu();
+    });
+
+    // Navegação dos links: mesma página = rolagem suave com offset; externo = padrão
+    nav.querySelectorAll('a[href]').forEach((link) => {
+        link.addEventListener('click', (e) => {
+        const url = new URL(link.getAttribute('href'), window.location.href);
+
+        // Mesmo path e possui hash -> é âncora na mesma página
+        const isSamePageAnchor = url.pathname === window.location.pathname && !!url.hash;
+
+        if (isSamePageAnchor) {
+            const id = url.hash.slice(1);
+            const target = document.getElementById(id);
+
+            if (target) {
+            e.preventDefault();
+            closeMenu();
+            // rola com offset do header (e pequena margem)
+            const y = window.pageYOffset + target.getBoundingClientRect().top - headerOffset() - 8;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+            history.pushState(null, '', `#${id}`);
+            } // se não achar o alvo, deixa o comportamento padrão
+        } else {
+            // Link externo ou outra página: apenas fecha e segue
+            closeMenu();
+        }
+        });
+    });
+
+    // Ao entrar em desktop, garante estado fechado
+    const mq = window.matchMedia('(min-width: 768px)');
+    mq.addEventListener('change', (ev) => { if (ev.matches) closeMenu(); });
+
+    // Corrige ancoragem em carregamento com hash (evita ficar atrás do header)
+    if (location.hash) {
+        const el = document.getElementById(location.hash.slice(1));
+        if (el) {
+        setTimeout(() => {
+            const y = el.getBoundingClientRect().top + window.pageYOffset - headerOffset() - 8;
+            window.scrollTo({ top: y });
+        }, 0);
+        }
+    }
+    });
+
+    // HEADER MENU FIM
+
+    // Parallax leve no hero
+    const heroTitle = $('#heroTitle');
+    const parallax = () => {
+      const y = Math.min(40, window.scrollY * 0.12);
+      heroTitle.style.transform = `translateY(${-y}px)`;
+      requestAnimationFrame(() => {});
+    };
+    addEventListener('scroll', parallax, { passive: true });
+
+    // Reveal on Scroll
+    const io = new IntersectionObserver((entries)=>{
+      for (const e of entries){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }
+    }, { threshold: .25 });
+    $$('.reveal').forEach(el=>io.observe(el));
+
+    // Cards gradientes a partir do data-attr
+    $$('.card').forEach(card=>{ const g = card.getAttribute('data-grad'); if(g) card.querySelector('.grad').style.background = g; });
+
+    // Carousel
+    const track = $('#carouselTrack');
+    const prevBtn = $('#prevBtn');
+    const nextBtn = $('#nextBtn');
+    const updateArrows = () => {
+      const canLeft = track.scrollLeft > 0;
+      const canRight = track.scrollLeft + track.clientWidth < track.scrollWidth - 1;
+      prevBtn.disabled = !canLeft; nextBtn.disabled = !canRight;
+    };
+
+    // Força o carrossel a rolar SOMENTE na horizontal (wheel + touch)
+    function makeHorizontalScrollOnly(el) {
+    if (!el) return;
+
+    // Acessível ao teclado (Home/End, Up/Down viram esquerda/direita)
+    el.setAttribute('tabindex', '0');
+
+    // Converte rolagem vertical do mouse (deltaY) em rolagem horizontal
+    el.addEventListener(
+        'wheel',
+        (e) => {
+        // Se o usuário rolou mais no Y do que no X, tratamos como X
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+            e.preventDefault(); // impede a página de rolar verticalmente
+            el.scrollBy({ left: e.deltaY, behavior: 'auto' });
+        }
+        // Se já veio deltaX, o navegador cuidará (não impedimos)
+        },
+        { passive: false }
+    );
+
+    // iOS/Android (fallback ao touch-action): bloqueia tentativas de rolagem vertical
+    let startX = 0, startY = 0, touching = false;
+    el.addEventListener('touchstart', (e) => {
+        const t = e.touches[0];
+        startX = t.clientX; startY = t.clientY; touching = true;
+    }, { passive: true });
+
+    el.addEventListener('touchmove', (e) => {
+        if (!touching) return;
+        const t = e.touches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        // Se o gesto está mais vertical que horizontal, bloqueia para não "puxar" a página
+        if (Math.abs(dy) > Math.abs(dx)) e.preventDefault();
+    }, { passive: false });
+
+    el.addEventListener('touchend',   () => { touching = false; }, { passive: true });
+    el.addEventListener('touchcancel',() => { touching = false; }, { passive: true });
+
+    // Teclado: Up/Down, PageUp/PageDown, Home/End
+    el.addEventListener('keydown', (e) => {
+        const by = Math.round(el.clientWidth * 0.8);
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); el.scrollBy({ left:  by, behavior: 'smooth' }); }
+        if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); el.scrollBy({ left: -by, behavior: 'smooth' }); }
+        if (e.key === 'Home')                              { e.preventDefault(); el.scrollTo({ left: 0, behavior: 'smooth' }); }
+        if (e.key === 'End')                               { e.preventDefault(); el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' }); }
+    });
+    }
+
+    // Chamada (já existe const track = $('#carouselTrack'); acima)
+    makeHorizontalScrollOnly(track);
+
+    const scrollByAmount = () => Math.round(track.clientWidth * 0.8);
+    prevBtn.addEventListener('click', ()=> track.scrollBy({ left: -scrollByAmount(), behavior:'smooth'}));
+    nextBtn.addEventListener('click', ()=> track.scrollBy({ left: scrollByAmount(), behavior:'smooth'}));
+    track.addEventListener('scroll', updateArrows, { passive:true });
+    addEventListener('resize', updateArrows);
+    updateArrows();
+
+    // Arraste (drag to scroll)
+    let isDown = false, startX = 0, startLeft = 0;
+    track.addEventListener('pointerdown', (e)=>{ isDown = true; startX = e.clientX; startLeft = track.scrollLeft; track.setPointerCapture(e.pointerId); track.style.cursor='grabbing'; });
+    track.addEventListener('pointermove', (e)=>{ if(!isDown) return; const dx = e.clientX - startX; track.scrollLeft = startLeft - dx; });
+    const endDrag = (e)=>{ isDown=false; track.releasePointerCapture?.(e.pointerId); track.style.cursor=''; };
+    track.addEventListener('pointerup', endDrag); track.addEventListener('pointercancel', endDrag); track.addEventListener('pointerleave', endDrag);
+
+    // Duplicar cards para grid desktop
+    const gridDesktop = $('#gridDesktop');
+    gridDesktop.innerHTML = track.innerHTML;
+
+    // Contact form (mock)
+    $('#contactForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.currentTarget));
+      alert(`Obrigado, ${data.name}! Recebi seu contato e vou retornar em breve.`);
+      e.target.reset();
+    });
+
+    // Cursor custom suave
+    const dot = $('#dot');
+    let tx = innerWidth/2, ty = innerHeight/2, cx = tx, cy = ty;
+    const lerp = (a,b,t)=>a+(b-a)*t;
+    const loop = ()=>{ cx = lerp(cx, tx, .18); cy = lerp(cy, ty, .18); dot.style.transform = `translate(${cx}px, ${cy}px)`; requestAnimationFrame(loop); };
+    loop();
+    addEventListener('pointermove', (e)=>{ tx = e.clientX; ty = e.clientY; });
+    addEventListener('pointerdown', ()=> dot.style.scale = .9);
+    addEventListener('pointerup', ()=> dot.style.scale = 1);
+
+    // Acessibilidade: esconder cursor custom em toque
+    addEventListener('touchstart', ()=>{ dot.style.display='none'; }, { once:true });
+
+    // Mostrar CTA desktop quando grande
+    const mq = matchMedia('(min-width:1100px)');
+    const toggleCTA = ()=> $('#ctaDesktop').style.display = mq.matches ? 'inline-flex' : 'none';
+    mq.addEventListener('change', toggleCTA); toggleCTA();
+
+    
