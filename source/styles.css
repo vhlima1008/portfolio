@@ -141,6 +141,7 @@
     .track{display:inline-block;white-space:nowrap;animation:marquee 40s linear infinite}
     .track span{display:inline-block;margin-inline:20px;font-weight:900;font-size:clamp(2rem,6vw,5rem)}
     @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(max-width: 760px){#hero-inner{width: 330px; margin-left: 1rem;} .hero{border-radius: var(--radius)}}
 
     /* Sections */
     section{padding-block:20px}
