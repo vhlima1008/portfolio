@@ -9,12 +9,12 @@
     button{font:inherit}
     :root{
       --bg: #0b0b0f; --fg:#f6f7fb; --muted:#a1a1b3; --card:#12121a; --line:#1e1e2a;
-      --brand1:#47e6a0; --brand2:#2ac8e3; --accent:#f472b6; --warm:#facc15;
+      --brand1:#22d3ee; --brand2:#2449ff; --accent:#7022ee; --warm:#22d3ee;
       --radius: 18px; --shadow: 0 8px 30px rgba(0,0,0,.25);
     }
     body[data-theme="light"]{
       --bg:#ffffff; --fg:#0b0b0f; --muted:#4b5563; --card:#f6f7fb; --line:#e5e7eb;
-      --brand1:#059669; --brand2:#0891b2; --accent:#db2777; --warm:#d97706;
+      --brand1:#248aff; --brand2:#80ffff; --accent:#248aff; --warm:#80ffff;
     }
     body{background:var(--bg);color:var(--fg);scroll-behavior:smooth}
     .container{width:min(1120px, 92%);margin-inline:auto}
