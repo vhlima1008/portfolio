@@ -12,6 +12,12 @@
       --brand1:#22d3ee; --brand2:#2449ff; --accent:#7022ee; --warm:#22d3ee;
       --radius: 18px; --shadow: 0 8px 30px rgba(0,0,0,.25);
     }
+    /* === Hero (props animáveis p/ blobs) === */
+    @property --ty {
+      syntax: '<length>';
+      initial-value: 0px;
+      inherits: false;
+    }
     body[data-theme="light"]{
       --bg:#ffffff; --fg:#0b0b0f; --muted:#4b5563; --card:#f6f7fb; --line:#e5e7eb;
       --brand1:#248aff; --brand2:#80ffff; --accent:#248aff; --warm:#80ffff;
@@ -38,7 +44,7 @@
     body{overflow-x:hidden}
 
     /* Links (desktop) */
-    nav a{font-size:.95rem;color:var(--muted);padding:.6rem .8rem;border-radius:12px;display:inline-block}
+    nav a{font-size:.95rem;color:var(--muted);padding:.6rem .8rem;border-radius:12px;display:inline-block; transition: .2s;}
     nav a:hover{color:var(--fg);background:color-mix(in oklab,var(--fg)8%,transparent)}
     #logo,#themeToggle,#menuToggle{color:var(--fg)}
 
@@ -132,16 +138,86 @@
 
     /* Hero */
     .hero{min-height:100svh;display:grid;place-items:center;position:relative;overflow:hidden;}
-    .hero-inner{text-align:left;width:100%;}
-    .blob{position:absolute;filter:blur(60px);opacity:.5;pointer-events:none;}
-    .b1{inset-inline-start:8%;inset-block-start:12%;width:380px;height:380px;background:radial-gradient(closest-side,var(--brand2),transparent)}
-    .b2{inset-inline-end:6%;inset-block-start:18%;width:260px;height:260px;background:radial-gradient(closest-side,var(--accent),transparent)}
-    .b3{inset-inline:50%;inset-block-end:-12%;translate:-50% 0;width:620px;height:620px;background:radial-gradient(closest-side,var(--brand1),transparent)}
+    .hero-inner{text-align:left;width:100%; }
+    
+    
+    
+    .blob{
+      position:absolute;
+      filter:blur(60px);
+      opacity:.3;
+      pointer-events:none;
+      animation: blurPulse 5s ease-in-out infinite alternate;
+      will-change: filter;
+    }
+    @keyframes blurPulse{
+      from{filter:blur(10px);}
+      to{filter:blur(60px);} 
+    }
+    
+    /* Registre variáveis de cor animáveis */
+    @property --b1c { syntax: '<color>'; inherits: false; initial-value: #0000; }
+    @property --b2c { syntax: '<color>'; inherits: false; initial-value: #0000; }
+    @property --b3c { syntax: '<color>'; inherits: false; initial-value: #0000; }
+
+
+    /* B1 */
+    .b1{
+      inset-inline-start:8%;
+      inset-block-start:12%;
+      width:380px;height:380px;
+      --b1c: var(--brand1); /* estado base */
+      background: radial-gradient(closest-side, var(--b1c), transparent);
+      animation: b1Shift 2s ease-in-out infinite alternate;
+      will-change: --b1c;
+    }
+    @keyframes b1Shift{
+      from { --b1c: var(--brand2); }
+      to   { --b1c: var(--brand1); }
+    }
+
+    /* B2 */
+    .b2{
+      inset-inline-end:6%;
+      inset-block-start:18%;
+      width:260px;height:260px;
+      --b2c: var(--brand2);
+      background: radial-gradient(closest-side, var(--b2c), transparent);
+      animation: b2Shift 2s ease-in-out infinite alternate;
+      will-change: --b2c;
+    }
+    @keyframes b2Shift{
+      from { --b2c: var(--accent); }
+      to   { --b2c: var(--brand2); }
+    }
+
+    /* B3 */
+    .b3{
+      inset-inline:50%;
+      inset-block-end:-12%;
+      translate:-50% 0;
+      width:620px;height:620px;
+      --b3c: var(--accent);
+      background: radial-gradient(closest-side, var(--b3c), transparent);
+      animation: b3Shift 2s ease-in-out infinite alternate;
+      will-change: --b3c;
+    }
+    @keyframes b3Shift{
+      from { --b3c: var(--brand1); }
+      to   { --b3c: var(--accent); }
+    }
+    
+    
     .marquee{overflow:hidden;opacity:.6;margin-block-start:28px}
     .track{display:inline-block;white-space:nowrap;animation:marquee 40s linear infinite}
     .track span{display:inline-block;margin-inline:20px;font-weight:900;font-size:clamp(2rem,6vw,5rem)}
     @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    @media(max-width: 760px){#hero-inner{width: 330px; margin-left: 1rem;} .hero{border-radius: var(--radius)}}
+
+    @media(max-width: 760px){#hero-inner{width: 40svh; margin-left: 1rem;} .hero{border-radius: var(--radius)}}
+
+
+
+
 
     /* Sections */
     section{padding-block:20px}
@@ -149,8 +225,8 @@
     @media (min-width:768px){.grid-3{grid-template-columns:repeat(3,1fr)}}
 
     /* Card Projeto */
-    .card{position:relative;isolation:isolate;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);overflow:hidden}
-    .card .grad{position:absolute;inset:0;z-index:-1;opacity:.35}
+    .card{position:relative;isolation:isolate;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);overflow:hidden;}
+    .card .grad{position:absolute;inset:0;z-index:-1;opacity:.35; transition: .5s;}
     .card:hover .grad{opacity:.6}
     .card h3{margin:0;font-size:1.05rem}
     .card p{margin:.5rem 0 0;color:var(--fg);opacity:.9}
@@ -221,10 +297,12 @@
       border-radius: 30px;
       box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
       margin: 5px;
-      transition: 0.5s;
+      transition: 0.3s;
       justify-content: center;
     }
-
+    .social-btn:hover{
+      background:color-mix(in oklab,var(--fg)10%, transparent)
+    }
     .social-btn svg {
       height: 24px;
       width: 24px;
@@ -236,23 +314,7 @@
       transition: 0.3s;
       text-align: center;
     }
-
-    .social-btn:hover {
-      width: fit-content;
-      border-radius: 15px;
-    }
-
-    .social-btn:hover svg {
-      margin-left: 10px;
-    }
-
-    .social-btn:hover span {
-      padding: 2px;
-      width: fit-content;
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-
+    
     #social-icon svg {
       fill: var(--fg);
     }
