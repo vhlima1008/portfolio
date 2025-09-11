@@ -270,5 +270,3 @@
     const mq = matchMedia('(min-width:1100px)');
     const toggleCTA = ()=> $('#ctaDesktop').style.display = mq.matches ? 'inline-flex' : 'none';
     mq.addEventListener('change', toggleCTA); toggleCTA();
-
-    
