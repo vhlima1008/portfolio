@@ -4,6 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Victor Hugo – Portfólio</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- EmailJS para enviar e-mails -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function(){
+          emailjs.init({
+            publicKey: "5W1mhe3hXYY70i0WA",
+          });
+      })();
+    </script>
+
   <link rel="stylesheet" href="source/styles.css">
   <meta name="description" content="Portfólio de Victor Hugo" />
 </head>
@@ -24,7 +35,7 @@
         <a href="#contact">Contato</a>
       </nav>
 
-      <div style="display:flex;gap:.4rem;align-items:center">
+      <div class="hdr-ctrls">
         <!-- Botão do drawer (apenas mobile) -->
         <button class="btn menu-btn" id="menuToggle"
                 aria-expanded="false" aria-controls="primaryNav" aria-label="Abrir menu">
@@ -57,16 +68,17 @@
       <div class="blob b2" aria-hidden></div>
       <div class="blob b3" aria-hidden></div>
       <div class="hero-inner">
-        <p id="hero-inner" style="color:var(--muted);">Victor Hugo Lima Monteiro</p>
-        <h1 id="hero-inner" class="title" id="heroTitle" style="font-size:clamp(2.2rem,6vw,4.2rem);max-width:18ch;">
-          Projetos digitais com foco em <span style="background:linear-gradient(90deg,var(--brand1),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent">impacto real</span>.
+        <p class="hero-chunk hero-kicker muted">Victor Hugo Lima Monteiro</p>
+        <h1 class="hero-chunk title hero-title" id="heroTitle">
+          Projetos digitais com foco em <span class="text-gradient">impacto real</span>.
         </h1>
-        <p id="hero-inner" style="max-width:56ch;color:var(--muted);font-size:1.05rem;margin-top:14px">
+        <p class="hero-chunk hero-lead muted">
           Desenvolvedor multiplataforma com experiência em projetos de inovação.
-        </p><br>
-        <div id="hero-inner" style="display:flex;flex-wrap:wrap;gap:.6rem;margin-top:16px;">
+        </p>
+        <br>
+        <div class="hero-chunk hero-cta">
           <a class="btn" href="#contact" aria-label="Fale comigo">Fale comigo
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden style="margin-left:.4rem"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden class="icon-gap"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <a class="btn" href="#work">Ver trabalhos</a>
         </div>
@@ -75,12 +87,12 @@
 
     <!-- WORK -->
     <section id="work" class="container">
-      <div style="display:flex;align-items:flex-end;justify-content:center;gap:16px;margin-bottom:14px">
+      <div class="section-head">
         <div>
-          <h2 class="title" style="font-size:clamp(1.8rem,4vw,2.8rem);margin:0;text-align: center;">Trabalhos em Destaque</h2>
-          <p style="color:var(--muted);margin:.4rem 0 0;text-align: center;">Minhas principais contribuições.</p>
+          <h2 class="title section-title-lg">Trabalhos em Destaque</h2>
+          <p class="section-subtitle">Minhas principais contribuições.</p>
         </div>
-        <a class="btn" href="#contact" style="display:none" id="ctaDesktop">Iniciar projeto</a>
+        <a class="btn" href="#contact" id="ctaDesktop">Iniciar projeto</a>
       </div>
 
       <!-- Carousel (mobile/tablet) -->
@@ -89,7 +101,7 @@
           <article class="card reveal" data-grad="linear-gradient(135deg, var(--accent), var(--warm))">
             <a href="https://www.linkedin.com/in/vhlima1008">
               <div class="grad" aria-hidden></div>
-              <header style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <header class="card-header">
                 <h3>#MostraTech</h3>
                 <span class="badge">2023</span>
               </header>
@@ -100,7 +112,7 @@
           <article class="card reveal" data-grad="linear-gradient(135deg, var(--brand2), var(--brand1))">
             <a href="https://www.behance.net/gallery/232666503/TilApp-Um-App-Inovador-e-Inclusivo">
               <div class="grad" aria-hidden></div>
-              <header style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <header class="card-header">
                 <h3>Tilapp</h3>
                 <span class="badge">2024</span>
               </header>
@@ -111,7 +123,7 @@
           <article class="card reveal" data-grad="linear-gradient(135deg, var(--accent), var(--warm))">
             <a href="https://github.com/vhlima1008/ReplAI">
               <div class="grad" aria-hidden></div>
-              <header style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <header class="card-header">
                 <h3>ReplAI</h3>
                 <span class="badge">2024</span>
               </header>
@@ -122,7 +134,7 @@
           <article class="card reveal" data-grad="linear-gradient(135deg, var(--brand2), var(--brand1))">
             <a href="https://github.com/pedro3141592/edu-financeira">
               <div class="grad" aria-hidden></div>
-              <header style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <header class="card-header">
                 <h3>Edu-Financeira</h3>
                 <span class="badge">2024</span>
               </header>
@@ -141,27 +153,28 @@
         <div class="nav-btn nav-r">
           <button id="nextBtn" aria-label="Próximo">
             <svg id="caBtn" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+              <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1 0 .708l-3.147-3.146A.5.5 0 0 1 1 8"/>
             </svg>
           </button>
         </div>
       </div>
     </section>
 
+
     <!-- ABOUT -->
     <section id="about" class="container">
-      <div style="display:grid;gap:18px;grid-template-columns:1fr;align-items:start">
+      <div class="about-wrap">
         <div class="reveal">
-          <h2 class="title" style="font-size:clamp(1.8rem,4vw,2.8rem);margin:0;text-align: center;">Sobre</h2>
+          <h2 class="title section-title-lg">Sobre</h2>
         </div>
         <div class="about-grid">
           <article class="cardAbout reveal">
-            <h3 style="margin-top:0">Quem é Victor Hugo?</h3>
+            <h3 class="reset-top">Quem é Victor Hugo?</h3>
             <p class="muted">Graduando em Engenharia da Computação pelo IFRJ, com formação técnica integrada em Informática.</p>
             <p class="muted">Possui conhecimentos sólidos em linguagens de programação pelo IFRJ e IFRS, bancos de dados e computação em nuvem com certificação AWS, redes de computadores com certificação Cisco e modelagem 3D com cursos pela CG Boost Academy. </p>
           </article>
-          <aside class="cardAbout reveal" style="transition-delay:80ms">
-            <h3 style="margin-top:0">Stacks</h3>
+          <aside class="cardAbout reveal delay-80">
+            <h3 class="reset-top">Stacks</h3>
             <ul class="inline" aria-label="Ferramentas e tecnologias">
               <li>JavaScript</li>
               <li>React / NestJS / Node.js</li>
@@ -184,40 +197,46 @@
     
     <!-- SERVICES -->
     <section id="services" class="container">
-      <h2 class="title" style="font-size:clamp(1.8rem,4vw,2.8rem);margin:0;text-align: center;">Serviços</h2>
-      <p style="color:var(--muted);margin:.4rem 0 14px;text-align: center;">Soluções rápidas e fáceis por um preço justo.</p>
+      <h2 class="title section-title-lg">Serviços</h2>
+      <p class="section-subtitle">Soluções rápidas e fáceis por um preço justo.</p>
       <div class="grid-3">
         <div class="card reveal">
-          <h3 style="margin:0">Full Stack</h3>
+          <h3 class="reset-top">Full Stack</h3>
           <p>Desenvolvimento de sistemas (app/web) escaláveis e completos.</p>
-          <div style="margin-top:10px;color:var(--brand1);display:flex;align-items:center;gap:.3rem">Saiba mais <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg></div>
+          <div class="link-more">Saiba mais 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg>
+          </div>
         </div>
         <div class="card reveal">
-          <h3 style="margin:0">3D / XR / Games</h3>
+          <h3 class="reset-top">3D / XR / Games</h3>
           <p>Ambientes 3D, materiais PBR e experiências imersivas.</p>
-          <div style="margin-top:10px;color:var(--brand1);display:flex;align-items:center;gap:.3rem">Saiba mais <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg></div>
+          <div class="link-more">Saiba mais 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg>
+          </div>
         </div>
         <div class="card reveal">
-          <h3 style="margin:0">Front-end Performático</h3>
+          <h3 class="reset-top">Front-end Performático</h3>
           <p>Interações reativas, acessibilidade e SEO técnico.</p>
-          <div style="margin-top:10px;color:var(--brand1);display:flex;align-items:center;gap:.3rem">Saiba mais <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg></div>
+          <div class="link-more">Saiba mais 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
     <section id="contact" class="container">
-      <div class="card reveal" style="background:linear-gradient(160deg,color-mix(in oklab,var(--fg)10%,transparent), var(--card));">
-        <div style="display:grid;gap:18px;grid-template-columns:1fr;align-items:center">
+      <div class="card reveal card-ghost">
+        <div class="contact-wrap">
           <div>
-            <h2 class="title" style="font-size:clamp(1.8rem,4vw,2.8rem);margin:0;text-align: center;">Vamos construir algo?</h2>
-            <p style="color:var(--muted);margin:.4rem 0 0;text-align: center;">Projetos abertos. Conte um pouco do seu desafio e retorno com um plano objetivo.</p>
+            <h2 class="title section-title-lg">Vamos construir algo?</h2>
+            <p class="section-subtitle">Projetos abertos. Conte um pouco do seu desafio e retorno com um plano objetivo.</p>
           </div>
-          <form id="contactForm">
-            <input name="name" required placeholder="Seu nome" />
-            <input name="email" type="email" required placeholder="Seu e‑mail" />
-            <textarea name="about" required rows="5" placeholder="Conte sobre o projeto"></textarea>
-            <button class="btn" id="btnContact" type="submit">
+          <form id="contactForm" action="/" method="POST">
+            <input name="name" id="fName" required placeholder="Seu nome" />
+            <input name="email" id="fEmail" type="email" required placeholder="Seu e-mail" />
+            <textarea name="about" id="fAbout" required rows="5" placeholder="Conte sobre o projeto"></textarea>
+            <button class="btn" id="btnContact" type="button" onclick="sendEmail()">
               Enviar 
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
@@ -242,18 +261,15 @@
   </main>
 
   <footer class="container">
-    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between">
+    <div class="footer-bar">
       <p>© <span id="year"></span> Victor Hugo Lima Monteiro. Todos os direitos reservados.</p>
-      <div style="display:flex;gap:8px;color:var(--muted)">
+      <div class="footer-links">
         <a href="#home">Topo</a><span>·</span>
         <a href="#work">Trabalhos</a><span>·</span>
         <a href="#contact">Contato</a>
       </div>
     </div>
   </footer>
-
-  <!-- Cursor custom container -->
-  <div class="cursor" aria-hidden><div class="dot" id="dot"></div></div>
 
   <script src="source/scripts.js"></script>
 </body>

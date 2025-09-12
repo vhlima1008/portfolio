@@ -1,3 +1,60 @@
+    // Enviar o Email
+    function sendEmail(){
+    Swal.fire({
+        title: 'Aviso',
+        html: 'Enviando Email, aguarde <b id="swal-timer">5</b>s…',
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: () => {
+        const b = document.getElementById('swal-timer');
+        let left = 5;
+        const int = setInterval(() => { left--; if (left >= 0) b.textContent = left; }, 1000);
+        Swal.showLoading();
+        Swal.stopTimer(); Swal.resumeTimer(); // garante início correto
+        Swal.getPopup().addEventListener('mouseenter', Swal.stopTimer);
+        Swal.getPopup().addEventListener('mouseleave', Swal.resumeTimer);
+        Swal.willClose = () => clearInterval(int);
+        }
+    });
+    
+    var name = document.getElementById('fName').value.trim();
+    var email = document.getElementById('fEmail').value.trim();
+    var about = document.getElementById('fAbout').value.trim();
+
+    if (!name || !email || !about) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Preencha todos os campos!',
+            confirmButtonText: 'Ok'
+        });
+        return false;
+    } else {
+        let params = {
+            name: name,
+            email: email,
+            about: about
+        };
+
+        const serviceID = "service_wqeg9sc";
+        const templateID = "template_88cgj0r";
+
+        emailjs
+            .send(serviceID, templateID, params)
+            .then((res) => {
+                document.getElementById("fName").value = "";
+                document.getElementById("fEmail").value = "";
+                document.getElementById("fAbout").value = "";
+                console.log(res);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Email enviado com sucesso!',
+                    confirmButtonText: 'Ok'
+                });
+            })
+            .catch((err) => console.log(err));
+        }
+    }
+
     // ------------------------------
     // Utilidades
     // ------------------------------
@@ -244,14 +301,6 @@
     // Duplicar cards para grid desktop
     const gridDesktop = $('#gridDesktop');
     gridDesktop.innerHTML = track.innerHTML;
-
-    // Contact form (mock)
-    $('#contactForm').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(e.currentTarget));
-      alert(`Obrigado, ${data.name}! Recebi seu contato e vou retornar em breve.`);
-      e.target.reset();
-    });
 
     // Cursor custom suave
     const dot = $('#dot');
